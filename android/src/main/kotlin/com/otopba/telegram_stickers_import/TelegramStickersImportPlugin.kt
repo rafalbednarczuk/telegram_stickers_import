@@ -81,6 +81,13 @@ class TelegramStickersImportPlugin : FlutterPlugin, MethodCallHandler, ActivityA
                 Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION
             )
         }
+        uris.forEach {
+            activity.grantUriPermission(
+                TELEGRAM_PACKAGE_WEB,
+                it,
+                Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION
+            )
+        }
 
         val emojis = ArrayList(stickerSet.stickers.map {
             it.emojis.joinToString(separator = "")
@@ -108,6 +115,7 @@ class TelegramStickersImportPlugin : FlutterPlugin, MethodCallHandler, ActivityA
 
     private companion object {
         private const val TELEGRAM_PACKAGE = "org.telegram.messenger"
+        private const val TELEGRAM_PACKAGE_WEB = "org.telegram.messenger.web"
         private const val CREATE_STICKER_PACK_ACTION = "$TELEGRAM_PACKAGE.CREATE_STICKER_PACK"
         private const val CREATE_STICKER_PACK_EMOJIS_EXTRA = "STICKER_EMOJIS"
         private const val CREATE_STICKER_PACK_IMPORTER_EXTRA = "IMPORTER"
