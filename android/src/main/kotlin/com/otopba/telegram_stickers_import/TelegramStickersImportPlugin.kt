@@ -63,16 +63,16 @@ class TelegramStickersImportPlugin : FlutterPlugin, MethodCallHandler, ActivityA
         val stickerSet = StickerSet.fromMap(call.arguments as Map<String, Any>)
 
         val uris = ArrayList(stickerSet.stickers.map {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 FileProvider.getUriForFile(
                     activity,
                     "${activity.packageName}.provider",
                     File(it.data.path!!)
                 )
-            } else {
+  /*          } else {
                 Uri.fromFile(File(it.data.path!!))
             }
-        })
+*/        })
 
         uris.forEach {
             activity.grantUriPermission(
@@ -98,15 +98,17 @@ class TelegramStickersImportPlugin : FlutterPlugin, MethodCallHandler, ActivityA
         intent.putExtra(CREATE_STICKER_PACK_IMPORTER_EXTRA, stickerSet.software)
         intent.putExtra(CREATE_STICKER_PACK_EMOJIS_EXTRA, emojis)
         intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_ACTIVITY_NEW_TASK
-        if (stickerSet.isAnimated) {
+//        if (stickerSet.isAnimated) {
             intent.type = "image/*"
-        } else {
-            intent.type = "application/x-tgsticker"
-        }
+//        } else {
+//            intent.type = "application/x-tgsticker"
+//        }
+//        Log.d("INTENT_TYPE", intent.type)
 
         try {
             activity.startActivity(intent)
         } catch (e: Exception) {
+//            e.printStackTrace()
             result.error("2", "error while import", e.toString())
             return
         }
