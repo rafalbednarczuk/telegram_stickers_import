@@ -34,11 +34,11 @@ public class SwiftTelegramStickersImportPlugin: NSObject, FlutterPlugin {
                 try stickerSet.addSticker(data: isAnimated == true ? .animation(data) : .image(data), emojis: emojis)
             }
             
-            if(args["thumbnail"]!==nil){
+          /*  if(args["thumbnail"]!==nil){
                 let thumbnail = args["thumbnail"] as! Dictionary<String, Any?>
                 let data = convertStickerData(input: thumbnail["data"] as! Dictionary<String, Any?>)
                 try stickerSet.setThumbnail(data:.image(data))
-            }
+            }*/
             
             try stickerSet.import()
         } catch(StickersError.fileTooBig) {
