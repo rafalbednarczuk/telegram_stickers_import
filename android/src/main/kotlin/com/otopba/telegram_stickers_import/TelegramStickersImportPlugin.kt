@@ -32,7 +32,7 @@ class TelegramStickersImportPlugin : FlutterPlugin, MethodCallHandler, ActivityA
         if (binaryMessenger == null) return
 
         activity = binding.activity as FlutterActivity
-        channel = MethodChannel(binaryMessenger, "telegram_stickers_import")
+        channel = MethodChannel(binaryMessenger!!, "telegram_stickers_import")
         channel?.setMethodCallHandler(this)
     }
 
